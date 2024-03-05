@@ -1,15 +1,20 @@
 import com.toedter.calendar.JDateChooser;
+import org.ems.con;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class Signup extends JFrame {
-    JTextField textField1,textField2,textField3,textField4,textField5,textField6,textField7,textField8;
+public class Signup extends JFrame implements ActionListener {
+    JTextField textField1,textField2,textField3,textField5,textField6,textField7,textField8;
     JDateChooser jDateChooser;
     JRadioButton r1,r2,m1,m2,m3;
+    JButton next;
     Random ran=new Random();
     long first4=ran.nextLong(1000);
+
     public Signup() {
 
         super("APPLICATION FORM");
@@ -170,8 +175,13 @@ public class Signup extends JFrame {
         textField8.setBounds(250,510,400,30);
         add(textField8);
 
-
-
+       next=new JButton("NEXT");
+       next.setFont(new Font("Raleway",Font.BOLD,14));
+       next.setBackground(Color.black);
+       next.setForeground(Color.WHITE);
+       next.setBounds(540,560,80,30);
+      next.addActionListener(this);
+       add(next);
 
         getContentPane().setBackground(new Color(222,255,228));
         setLayout(null);
@@ -180,6 +190,38 @@ public class Signup extends JFrame {
         setVisible(true);
 
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+String formNo = String.valueOf(first4);
+String name = textField1.getName();
+String fName =textField2.getName();
+String dob = ((JTextField) jDateChooser.getDateEditor().getUiComponent()).getText();
+String gender =null;
+if(r1.isSelected()){
+    gender="Male";
+} else if (r2.isSelected()) {
+    gender="Female";
+
+}String email =textField3.getText();
+String marital= null;
+if (m1.isSelected()){
+    marital="Married";
+} else if (m2.isSelected()) {
+    marital="Unmarried";
+
+} else if (m3.isSelected()) {
+    marital ="other";
+
+}
+
+String address =textField5.getText();
+String city =textField6.getText();
+String pincode = textField7.getText();
+String state =textField8.getText();
+    }
+
+
 
     public static void main(String[] args) {
         new Signup();
