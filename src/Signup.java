@@ -6,10 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Statement;
 import java.util.Random;
-
-import static java.time.chrono.JapaneseEra.values;
 
 public class Signup extends JFrame implements ActionListener {
     JTextField textField1, textField2, textField3, textField5, textField6, textField7, textField8;
@@ -18,6 +15,7 @@ public class Signup extends JFrame implements ActionListener {
     JButton next;
     Random ran = new Random();
     long first4 = ran.nextLong(1000);
+    String ffirst= String.valueOf(first4);
 
     public Signup() {
 
@@ -197,7 +195,7 @@ public class Signup extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String formno = String.valueOf(first4);
+        String formno = String.valueOf(ffirst);
         String name = textField1.getName();
         String fname = textField2.getName();
         String dob = ((JTextField) jDateChooser.getDateEditor().getUiComponent()).getText();
@@ -234,7 +232,7 @@ public class Signup extends JFrame implements ActionListener {
 
                 // c.statement.executeUpdate(q);
                 c.statement.executeUpdate(query);
-                 new Signup2();
+                 new Signup2(ffirst);
                 setVisible(false);
             }
 
