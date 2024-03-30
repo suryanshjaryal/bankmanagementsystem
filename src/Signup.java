@@ -226,13 +226,13 @@ public class Signup extends JFrame implements ActionListener {
         try {
             if (textField1.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
-            } else {
+            } else  {
                 Connn c = new Connn();
                 String query = "insert into signup values('"+formno+"', '"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"', '"+address+"', '"+city+"','"+pincode+"','"+state+"' )";
 
                 // c.statement.executeUpdate(q);
                 c.statement.executeUpdate(query);
-                 new Signup2(ffirst);
+                 new Signup2(formno);
                 setVisible(false);
             }
 

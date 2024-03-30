@@ -18,12 +18,8 @@ public class Login extends JFrame implements ActionListener {
         image.setBounds(220, 4, 100, 100);
         add(image);
 
-        ImageIcon ii1 = new ImageIcon(ClassLoader.getSystemResource("icon/card.png"));
-        Image ii2 = ii1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-        ImageIcon ii3 = new ImageIcon(ii2);
-        JLabel iimage = new JLabel(ii3);
-        iimage.setBounds(430, 250, 100, 100);
-        add(iimage);
+
+        
 
         label1 = new JLabel("WELCOME TO ATM");
         label1.setForeground(Color.WHITE);
@@ -103,6 +99,7 @@ public class Login extends JFrame implements ActionListener {
                 jPasswordField3.setText("");
             } else if (e.getSource() == button3) {
                        new Signup();
+                       setVisible(false);
             }
         }catch (Exception E){
             E.printStackTrace();

@@ -1,15 +1,17 @@
+import bank.management.system.Connn;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Signup2 extends JFrame implements ActionListener {
-JTextField textField1,textField2,textField,getTextField3;
-JComboBox comboBox1,comboBox2,comboBox3;
+JTextField textField11,textField12;
+JComboBox comboBox1,comboBox2,comboBox3,comboBox13,comboBox4;
 JButton button1;
 JRadioButton jRadioButton1,jRadioButton2,jRadioButton3,jRadioButton4;
 String formno;
-    public Signup2(String ffirst) {
+    public Signup2(String formno) {
 
         super("APPLICATION FORM");
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/bank.png"));
@@ -26,6 +28,7 @@ String formno;
       label1.setBounds(300,60,600,40);
       add(label1);
 
+
         JLabel label2 = new JLabel("ADDITIONAL DETAILS");
         label2.setBounds(300, 85, 600, 40);
         label2.setFont(new Font("Raleway", Font.BOLD, 18));
@@ -36,20 +39,20 @@ String formno;
         label3.setFont(new Font("Raleway", Font.BOLD, 20));
         add(label3);
 
-        textField1 = new JTextField();
-        textField1.setFont(new Font("Raleway", Font.BOLD, 14));
-        textField1.setBounds(250, 145, 400, 30);
-        add(textField1);
+        textField11 = new JTextField();
+        textField11.setFont(new Font("Raleway", Font.BOLD, 14));
+        textField11.setBounds(250, 145, 400, 30);
+        add(textField11);
 
         JLabel label4 = new JLabel("PAN NUMBER");
         label4.setBounds(0, 172, 700, 60);
         label4.setFont(new Font("Raleway", Font.BOLD, 20));
         add(label4);
 
-        textField2 = new JTextField();
-        textField2.setFont(new Font("Raleway", Font.BOLD, 14));
-        textField2.setBounds(250, 185, 400, 30);
-        add(textField2);
+        textField12 = new JTextField();
+        textField12.setFont(new Font("Raleway", Font.BOLD, 14));
+        textField12.setBounds(250, 185, 400, 30);
+        add(textField12);
 
         JLabel label5 = new JLabel("RELIGION");
         label5.setBounds(0, 212, 700, 60);
@@ -96,12 +99,12 @@ String formno;
         add(label8);
 
         String EDUCATION[] ={"NON-GRADUATE","GRADUATE","POST-GRADUATE","OTHERS"};
-        comboBox3=new JComboBox<>(EDUCATION);
+        comboBox13=new JComboBox<>(EDUCATION);
         // comboBox1.setBackground(new Color(0x09A0A0A, true));
         //  comboBox1.setForeground(new Color(0x0E0D0D));
-        comboBox3.setFont(new Font("Raleway",Font.BOLD,20));
-        comboBox3.setBounds(250,340,400,25);
-        add(comboBox3);
+        comboBox13.setFont(new Font("Raleway",Font.BOLD,20));
+        comboBox13.setBounds(250,340,400,25);
+        add(comboBox13);
 
 
         JLabel label9 = new JLabel("OCCUPATION");
@@ -110,12 +113,12 @@ String formno;
         add(label9);
 
         String OCCUPATION[] ={"SALARIED","SELF-EMPLOYED","BUSINESS","RETIRED","OTHERS"};
-        comboBox3=new JComboBox<>(OCCUPATION);
+        comboBox4=new JComboBox<>(OCCUPATION);
         // comboBox1.setBackground(new Color(0x09A0A0A, true));
         //  comboBox1.setForeground(new Color(0x0E0D0D));
-        comboBox3.setFont(new Font("Raleway",Font.BOLD,20));
-        comboBox3.setBounds(250,380,400,25);
-        add(comboBox3);
+        comboBox4.setFont(new Font("Raleway",Font.BOLD,20));
+        comboBox4.setBounds(250,380,400,25);
+        add(comboBox4);
 
         JLabel label10 = new JLabel("SENIOR CITIZEN");
         label10.setBounds(0, 415, 700, 60);
@@ -172,9 +175,46 @@ setVisible(true);
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String rel = (String) comboBox1.getSelectedItem();
+        String cate = (String) comboBox2.getSelectedItem();
+        String inc = (String) comboBox3.getSelectedItem();
+        String edu = (String) comboBox13.getSelectedItem();
+        String occ = (String) comboBox4.getSelectedItem();
+        String pan = (String) textField12.getText();
+        String aadhar = (String) textField11.getText();
+        String citizen = " ";
+        if (jRadioButton1.isSelected()) {
+            citizen = "yes";
+
+        } else if (jRadioButton2.isSelected()) {
+            citizen = "no";
+        }
+
+        String eAccount = " ";
+        if (jRadioButton3.isSelected()) {
+            citizen = "yes";
+
+        } else if (jRadioButton4.isSelected()) {
+            citizen = "no";
+        }
+
+
+        try {
+            if (textField11.getText().equals("") || textField12.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Fill all the fields");
+            } else  {
+                Connn c1 = new Connn();
+                String q = "insert into signup2 values('" + formno + "','" + rel + "','" + cate + "','" + inc + "','" + edu + "','" + occ + "','" +pan+ "','" + aadhar + "','" + citizen + "','" + eAccount + "')";
+                c1.statement.executeUpdate(q);
+                new Signup3(formno);
+                setVisible(false);
+            }
+
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
 
     }
-
     public static void main(String[] args) {
         new Signup2("");
     }
