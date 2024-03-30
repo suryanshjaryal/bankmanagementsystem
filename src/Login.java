@@ -1,7 +1,11 @@
+import bank.management.system.Connn;
+import org.ems.mainClass;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener {
     JLabel label1, label2, label3;
@@ -83,6 +87,7 @@ public class Login extends JFrame implements ActionListener {
 
 
         setLayout(null);
+        setUndecorated(true);
         setSize(550, 380);
         setVisible(true);
         setLocation(350, 200);
@@ -92,6 +97,18 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource() == button1) {
+                Connn connn=new Connn();
+                String cardNo=textField2.getText();
+                String pin=jPasswordField3.getText();
+
+                String q="select * from login where card_number ='"+cardNo+"' and pin='"+pin+"'";
+                ResultSet resultSet=connn.statement.executeQuery(q);
+               if (resultSet.next()){
+                   setVisible(false);
+                   new mainClass(pin);
+               } else  {
+                   JOptionPane.showMessageDialog(null,"INCORRECT CARD NUMBER/PIN");
+               }
 
             } else if (e.getSource() == button2) {
 
