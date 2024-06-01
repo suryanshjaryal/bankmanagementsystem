@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Signup3 extends JFrame implements ActionListener {
-
+String pin;
 JButton button1,button2;
  JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9, label10;
  JCheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9, checkBox10, checkBox11;
@@ -230,7 +230,7 @@ Random ran =new Random();
 String cardNo=""+Math.abs(first7);
 
 Long first3 =(ran.nextLong() % 9000l)+ 1000L;
-String pin=""+Math.abs((first3));
+ pin=""+Math.abs((first3));
 
 String fac ="";
 if(checkBox5.isSelected()){
@@ -258,6 +258,7 @@ try {
 c1.statement.executeUpdate(q1);
    c1.statement.executeUpdate(q2);
    JOptionPane.showMessageDialog(null,"Card Number : "+cardNo+"\n Pin : "+pin );
+
    new deposit(pin);
    setVisible(false);
 

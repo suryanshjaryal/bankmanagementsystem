@@ -111,7 +111,7 @@ this.pin=pin;
         }if (e.getSource()==button4){
 
         }if (e.getSource()==button5){
-
+            new withdrawalAmnt(pin);
         }if (e.getSource()==button6){
 
         }if (e.getSource()==button7){

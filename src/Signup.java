@@ -100,7 +100,7 @@ public class Signup extends JFrame implements ActionListener {
         label8.setFont(new Font("Raleway", Font.BOLD, 20));
         add(label8);
 
-        textField3 = new JTextField();
+        textField3 = new JTextField("@gmail.com");
         textField3.setFont(new Font("Raleway", Font.BOLD, 14));
         textField3.setBounds(250, 305, 400, 30);
         add(textField3);

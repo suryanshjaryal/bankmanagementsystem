@@ -6,18 +6,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.util.Date;
 
-public class deposit extends JFrame implements ActionListener {
+
+public class withdrawalAmnt extends JFrame implements ActionListener {
     JLabel label1;
     JTextField textField1;
     JButton button1, button2;
+    String pin;
 
-String pin;
 
-    public deposit(String pin) {
+    public withdrawalAmnt(String pin) {
 
-        label1 = new JLabel("ENTER THE AMMOUNT  YOU WANT TO DEPOSIT:");
+
+        label1 = new JLabel("ENTER THE AMOUNT  YOU WANT TO WITHDRAW:");
         label1.setBounds(310, 100, 500, 100);
         label1.setForeground(new Color(0xFFFFFF));
         label1.setFont(new Font("Raleway", Font.BOLD, 19));
@@ -26,15 +29,15 @@ String pin;
 
         textField1 = new JTextField();
         textField1.setBounds(380, 200, 300, 28);
-        textField1.setFont(new Font("Raleway", Font.BOLD, 26));
+        textField1.setFont(new Font("Rale way", Font.BOLD, 26));
         textField1.setBackground(new Color(0x0BDE10));
         textField1.setForeground(new Color(0xFFFFFF));
         add(textField1);
 
-        button1 = new JButton("DEPOSIT");
+        button1 = new JButton("WITHDRAW");
         button1.setBackground(new Color(0xE0E009));
         button1.setForeground(new Color(0xFFFFFF));
-        button1.setBounds(680, 306, 100, 28);
+        button1.setBounds(665, 306, 120, 28);
         button1.setFont(new Font("Arial", Font.BOLD, 14));
         button1.addActionListener(this);
         add(button1);
@@ -42,13 +45,12 @@ String pin;
         button2 = new JButton("BACK");
         button2.setBackground(new Color(0xE0E009));
         button2.setForeground(new Color(0xFFFFFF));
-        button2.setBounds(680, 336, 100, 28);
+        button2.setBounds(665, 336, 120, 28);
         button2.setFont(new Font("Arial", Font.BOLD, 14));
         button2.addActionListener(this);
         add(button2);
 
-this.pin=pin;
-
+        this.pin = pin;
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm2.png"));
         Image i2 = i1.getImage().getScaledInstance(1300, 670, Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
@@ -63,6 +65,10 @@ this.pin=pin;
         setVisible(true);
     }
 
+    public static void main(String[] args) {
+        new withdrawalAmnt("");
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -71,31 +77,40 @@ this.pin=pin;
             String amount = textField1.getText();
             Date date = new Date();
 
-            if (e.getSource() == button1) {
-                if (textField1.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "ENTER THE DEPOSIT AMOUNT");
-                } else {
-                    Connn connn = new Connn();
-                    String q1 = "insert into bank values('" + pin + "','" + date + "','deposit','" + amount + "')";
-                    connn.statement.executeUpdate(q1);
-                    JOptionPane.showMessageDialog(null, "Rs" + amount + "DepositedSuccessfully");
-             new mainClass(pin);
-             setVisible(false);
-                }
+            if (textField1.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "PLEASE ENTER THE AMOUNT YOU WANT TO WITHDRAW");
+            } else {
+                Connn connn = new Connn();
+                ResultSet resultSet = connn.statement.executeQuery("select * from bank where pin ='" + pin + "'");
+                   int balance=0;
+                   while (resultSet.next()){
+                       if (resultSet.getString("type").equals("Deposit")){
+                           balance+= Integer.parseInt(resultSet.getString("amount"));
+                       }else{
+                           balance-= Integer.parseInt(resultSet.getString("amount"));
 
-            } else if (e.getSource()==button2) {
-                setVisible(false);
+                       }
+                   }
 
             }
+
+
+            if (e.getSource() == button1) {
+
+
+
+            }
+            if (e.getSource() == button2) {
+                new mainClass(pin);
+                setVisible(false);
+            }
+
 
         } catch (Exception E) {
             E.printStackTrace();
         }
 
     }
-
-    public static void main(String[] args) {
-        new deposit("");
-
-    }
 }
+
+
