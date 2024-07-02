@@ -70,25 +70,21 @@ this.pin=pin;
         try {
             String amount = textField1.getText();
             Date date = new Date();
-
-            if (e.getSource() == button1) {
-                if (textField1.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "ENTER THE DEPOSIT AMOUNT");
-                } else {
+            if (e.getSource()==button1){
+                if (textField1.getText().equals("")){
+                    JOptionPane.showMessageDialog(null,"Please enter the Amount you want to Deposit");
+                }else {
                     Connn connn = new Connn();
-                    String q1 = "insert into bank values('" + pin + "','" + date + "','deposit','" + amount + "')";
-                    connn.statement.executeUpdate(q1);
-                    JOptionPane.showMessageDialog(null, "Rs" + amount + "DepositedSuccessfully");
-             new mainClass(pin);
-             setVisible(false);
+                    connn.statement.executeUpdate("insert into bank values('"+pin+"', '"+date+"','Deposit', '"+amount+"')");
+                    JOptionPane.showMessageDialog(null,"Rs. "+amount+" Deposited Successfully");
+                    setVisible(false);
+                    new mainClass(pin);
                 }
-
-            } else if (e.getSource()==button2) {
+            }else if (e.getSource()==button2){
                 setVisible(false);
-
+                new mainClass(pin);
             }
-
-        } catch (Exception E) {
+        }catch (Exception E){
             E.printStackTrace();
         }
 
